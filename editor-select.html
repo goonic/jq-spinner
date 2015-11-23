@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>可编辑的下拉框-jQuery</title>
+    <style>
+        h4{
+            font-size: 18px;
+            text-align: center;
+        }
+        .form-editor{
+            width:500px;
+            margin: 20px auto;
+        }
+        *[class^="col-xs-"]{
+            float: left;
+        }
+        .col-xs-4{
+            width: 33.32%;
+            text-align: right;
+            padding-top:5px;
+            vertical-align: bottom;
+        }
+        .col-xs-8{
+            width: 66.64%;
+        }
+        /* Editor Select*/
+        .editor-slt-box{ position:relative; width:100%; font-size:14px; display:table;}
+        .editor-slt-box .editor-input,.editor-slt-box .editor-select,.editor-slt-box .editor-del{ display:table-cell}
+        .editor-slt-box .editor-input {
+            position:absolute; top:6px; left:12px;
+            background-color:#fff;
+            border:0 none;
+            vertical-align: middle;
+            line-height:1.42857;
+            box-shadow:none;
+            width:60%;
+        }
+
+        .editor-slt-box .editor-select{
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #555;
+            display: block;
+            font-size: 14px;
+            height: 34px;
+            line-height: 1.6;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 98%;
+        }
+        .editor-slt-box .editor-del{
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            padding: 6px 12px;
+            text-align: center;
+            cursor:pointer;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 1%;
+        }
+        .editor-del .glyphicon{ padding-right:0;}
+    </style>
+</head>
+<body>
+<h4>jQuery-可编辑的下拉框</h4>
+<div class="form-editor">
+    <label class="col-xs-4">可编辑下拉框：</label>
+    <div class="col-xs-8">
+        <div class="editor-slt-box">
+            <input class="editor-input" value="" placeholder="--请选择--">
+            <select class="editor-select">
+                <option>下拉框1</option>
+                <option>下拉框2</option>
+                <option>下拉框3</option>
+            </select>
+            <span class="editor-del"><span class="glyphicon glyphicon-remove">×</span></span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".editor-input").blur(function () {
+            var val = $(".editor-input").val();
+            if(!$.trim(val)==""){
+                $(".editor-select").append("<option>"+ $.trim(val)+"</option>");
+            }
+        });
+        $(".editor-select").click(function(){
+            $(".editor-input").val($('.editor-select option:selected').text());
+        });
+        $(".editor-del").click(function(){
+            $(".editor-select option:selected").remove();
+            $(".editor-input").val("");
+            return false;
+        });
+    })
+</script>
+</body>
+</html>
